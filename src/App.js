@@ -1,26 +1,42 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export default class App extends React.Component {
+  constructor() {
+    super();
 
-export default App;
+    this.state = {
+      contacts: [],
+      search: ''
+    };
+  }
+
+  componentDidMount() {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(response => response.json())
+      .then(res => this.setState({ contacts: res }));
+  }
+
+  render() {
+    const shownContacts = this.state.contacts;
+
+    return (
+      <div>
+        <input
+          type="text"
+          placeholder="Search..."
+          onChange={e => this.setState({ search: e.target.value })}
+          value={this.state.search}
+        />
+        <ul>
+          {shownContacts.map(elem => (
+            <li key={elem.id}>
+              <h4>{elem.name}</h4>
+              <span>{elem.phone}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
