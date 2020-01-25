@@ -9,7 +9,6 @@ import {
   List,
   Transition,
   Sticky,
-  Popup,
   Placeholder,
   Divider
 } from 'semantic-ui-react';
@@ -44,20 +43,15 @@ export default class App extends React.Component {
     return (
       <Container>
         <Sticky>
-          <Popup
-            trigger={
-              <Input
-                placeholder="Search..."
-                className="input-search"
-                icon="search"
-                fluid
-                onChange={e =>
-                  this.setState({ search: e.target.value.trimStart() })
-                }
-                value={this.state.search}
-              />
+          <Input
+            placeholder="Search..."
+            className="input-search"
+            icon="search"
+            fluid
+            onChange={e =>
+              this.setState({ search: e.target.value.trimStart() })
             }
-            content="Search for your contacts"
+            value={this.state.search}
           />
         </Sticky>
 
